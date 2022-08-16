@@ -11,7 +11,6 @@ def get_value_from_db(sql):
 
 
 def get_by_title(title_name):
-
     sql = f"""
           SELECT title, country, release_year, listed_in, description
           FROM netflix
@@ -35,4 +34,24 @@ def get_by_title_release_year(release_year_one, release_year_two):
         dict_result.append(dict(item))
     return dict_result
 
-# print(get_by_title_release_year(1999, 2001))
+
+def get_by_rating(rating):
+    my_rating = {
+        "children": ("G"),
+        "family": ("G", "PG", "PG-13"),
+        "adult": ("R", "NC-17")
+    }
+
+    sql = f"""
+            SELECT title, rating, description
+            FROM netflix
+            WHERE rating in {my_rating.get(rating, ("G"))}
+    """
+    result = get_value_from_db(sql)
+    dict_result = []
+    for item in result:
+        dict_result.append(dict(item))
+    return dict_result
+
+
+# print(get_by_rating("family"))
