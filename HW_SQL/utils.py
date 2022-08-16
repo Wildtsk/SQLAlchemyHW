@@ -54,4 +54,18 @@ def get_by_rating(rating):
     return dict_result
 
 
-# print(get_by_rating("family"))
+def get_by_genre(genre):
+
+    sql = f"""
+            SELECT title, description
+            FROM netflix
+            WHERE listed_in LIKE '{genre}'
+    """
+    result = get_value_from_db(sql)
+    dict_result = []
+    for item in result:
+        dict_result.append(dict(item))
+    return dict_result
+
+
+print(get_by_genre("Movies"))

@@ -2,7 +2,7 @@ import json
 
 from flask import jsonify, Flask
 
-from utils import get_by_title_release_year, get_by_title, get_by_rating
+from utils import get_by_title_release_year, get_by_title, get_by_rating, get_by_genre
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -41,6 +41,18 @@ def search_by_release_year_page(release_year_one, release_year_two):
 @app.get('/rating/<rating>')
 def search_by_rating_page(rating):
     result = get_by_rating(rating)
+    return app.response_class(
+        response=json.dumps(result,
+                            ensure_ascii=False,
+                            indent=4),
+        status=200,
+        mimetype="application/json"
+    )
+
+
+@app.get('/genre/<genre>')
+def search_by_genre_page(genre):
+    result = get_by_genre(genre)
     return app.response_class(
         response=json.dumps(result,
                             ensure_ascii=False,
