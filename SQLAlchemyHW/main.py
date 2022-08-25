@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from utils import get_users_all, get_orders_all, get_offers_all
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URL"] = "sqlite:///job.db"
+app.config["SQLALCHEMY_DATABASE_URL"] = "sqlite:///job_db"
 
 db = SQLAlchemy(app)
 
@@ -50,8 +50,8 @@ class User(db.Model):
     role = Column(Text)
     phone = Column(Text)
 
-    order_customer = relationship("Order")
-    order_executor = relationship("Order")
+    order_customer = relationship('Order')
+    order_executor = relationship('Order')
     offers = relationship("Offer")
 
 
