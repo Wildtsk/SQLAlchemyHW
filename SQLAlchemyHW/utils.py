@@ -17,5 +17,3 @@ def get_offers_all() -> list[dict]:
     """Возвращает все предложения"""
     with open("offers.json", "r", encoding="utf-8") as file:
         return json.load(file)
-
-
