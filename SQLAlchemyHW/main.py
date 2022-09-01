@@ -11,9 +11,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///job.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
+# """Шаг 1 - создание моделей"""
 class User(db.Model):
-    """Модель пользователя"""
+    # """Модель пользователя"""
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
@@ -40,7 +40,7 @@ class User(db.Model):
 
 
 class Order(db.Model):
-    """Модель заказа"""
+    # """Модель заказа"""
     __tablename__ = 'order'
 
     id = Column(Integer, primary_key=True)
@@ -73,7 +73,7 @@ class Order(db.Model):
 
 
 class Offer(db.Model):
-    """Модель предложения"""
+    # """Модель предложения"""
     __tablename__ = 'offer'
 
     id = Column(Integer, primary_key=True)
@@ -115,7 +115,7 @@ order = db.session.query(Order).get(1)
 offer = db.session.query(Offer).get(1)
 user = db.session.query(User).get(1)
 
-
+# """GET и POST для пользователей"""
 @app.route('/users', methods=['GET', 'POST'])
 def users():
     if request.method == "GET":
@@ -136,6 +136,7 @@ def users():
 
 
 @app.route('/users/<int:pk>', methods=['GET', 'PUT', 'DELETE'])
+# """Работа по конкретному пользователю"""
 def read_user(pk):
     if request.method == "GET":
         return f'{db.session.query(User).get(pk)}'
@@ -163,6 +164,7 @@ def read_user(pk):
 
 
 @app.route('/orders', methods=["GET", "POST"])
+# """Работа по заказам"""
 def orders():
     if request.method == "GET":
         result = []
@@ -182,6 +184,7 @@ def orders():
 
 
 @app.route('/orders/<int:pk>', methods=['GET', 'PUT', 'DELETE'])
+# """Работа по конкретному заказу"""
 def read_order(pk):
     if request.method == "GET":
         return f'{db.session.query(Order).get(pk)}'
@@ -208,6 +211,7 @@ def read_order(pk):
 
 
 @app.route('/offers', methods=['GET', 'POST'])
+# """Работа по предложениям"""
 def offers():
     if request.method == "GET":
         result = []
@@ -227,6 +231,7 @@ def offers():
 
 
 @app.route('/offers/<int:pk>', methods=['GET', 'PUT', 'DELETE'])
+# """Работа по конкретному предложению"""
 def read_offer(pk):
     if request.method == "GET":
         return f'{db.session.query(Offer).get(pk).order_1}\n{db.session.query(Offer).get(pk).user}'
